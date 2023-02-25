@@ -6,7 +6,7 @@ import open from '../../../../assets/open';
 import { Spacer } from '../../../components/spacer.component';
 import { Address, Icon, Info, Rating, RatingAndStatus, RestaurantCard, RestaurantCardCover, Status } from './restaurant-info-card.styles';
 
-export const RestaurantInfoCard = ({ restaurant = {} }) => {
+export const RestaurantInfoCard = ({ restaurant }) => {
 
     const {
         name = "Some Restaurant",
@@ -17,7 +17,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         address = "100 some random street",
         isOpenNow = true,
         rating = 4,
-        isClosedTemporarily = true
+        isClosedTemporarily
     } = restaurant;
 
     const ratingArray = Array.from(new Array(Math.floor(rating)));
