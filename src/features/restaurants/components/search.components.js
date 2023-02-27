@@ -13,11 +13,6 @@ export const Search = () => {
 
     const [searchKeyword, setSearchKeyword] = useState(keyword);
 
-    // useEffect(() => {
-    //     search(searchKeyword)
-    // }, [])
-    // console.log(keyword)
-
     return (
         <SearchContainer>
             <Searchbar
