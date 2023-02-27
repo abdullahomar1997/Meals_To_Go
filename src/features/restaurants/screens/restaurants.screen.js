@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { View, SafeAreaView, Pressable, FlatList, StatusBar } from 'react-native';
+import { View, SafeAreaView,TouchableOpacity, Pressable, FlatList, StatusBar } from 'react-native';
 import { RestaurantInfoCard } from '../components/restaurant-info-card.components';
 import styled from 'styled-components/native';
 import { Spacer } from '../../../components/spacer.component';
@@ -7,7 +7,6 @@ import { SafeArea } from '../../../components/utils/safe-area.components.';
 import { RestaurantsContext } from '../../../services/restaurant/restaurants.context';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import { Search } from '../components/search.components';
-
 
 const RestaurantList = styled(FlatList).attrs({
     contentContainerStyle: {
@@ -39,11 +38,11 @@ export const RestaurantsScreen = ({ navigation }) => {
                 data={restaurants}
                 renderItem={({ item }) => {
                     return (
-                        <Pressable onPress={() => navigation.navigate("RestaurantDetail")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("RestaurantDetail")}>
                             <Spacer position="bottom" size="large" >
                                 <RestaurantInfoCard restaurant={item} />
                             </Spacer>
-                        </Pressable>
+                        </TouchableOpacity>
                     )
                 }
                 }
