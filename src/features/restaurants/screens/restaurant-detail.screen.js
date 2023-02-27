@@ -1,5 +1,6 @@
 import React from 'react'
 import { SafeArea } from '../../../components/utils/safe-area.components.';
+import { RestaurantAccordion } from '../components/restaurant-accordion.component';
 import { RestaurantInfoCard } from '../components/restaurant-info-card.components';
 
 export const RestaurantDetailScreen = ({ route, navigation }) => {
@@ -8,6 +9,7 @@ export const RestaurantDetailScreen = ({ route, navigation }) => {
     return (
         <SafeArea>
             <RestaurantInfoCard restaurant={restaurant} />
+            <RestaurantAccordion />
         </SafeArea>
     )
 }
