@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 import { Platform } from 'react-native'
 import WebView from 'react-native-webview'
+import { Text } from 'react-native'
 
 const CompactImage = styled.Image`
     border-radius: 10px;
@@ -24,8 +25,8 @@ export const CompactRestaurantInfo = ({ restaurant }) => {
     const Image = isAndroid ? CompactWebview : CompactImage
     return (
         <Item>
-            <CompactImage source={{ uri: restaurant.photos[0] }} />
-            <Text center variant="caption" numberOfLines={3} ></Text>
+            <Image source={{ uri: restaurant.photos[0] }} />
+            <Text center variant="caption" numberOfLines={3}>{restaurant.name}</Text>
         </Item>
     )
 }
