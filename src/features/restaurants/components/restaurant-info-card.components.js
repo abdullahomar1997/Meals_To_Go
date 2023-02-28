@@ -5,6 +5,7 @@ import star from '../../../../assets/star';
 import open from '../../../../assets/open';
 import { Spacer } from '../../../components/spacer.component';
 import { Address, Icon, Info, Rating, RatingAndStatus, RestaurantCard, RestaurantCardCover, Status } from './restaurant-info-card.styles';
+import { Favourites } from '../../../components/favourites/favourites.component';
 
 export const RestaurantInfoCard = ({ restaurant }) => {
 
@@ -18,13 +19,14 @@ export const RestaurantInfoCard = ({ restaurant }) => {
         isOpenNow = true,
         rating = 4,
         isClosedTemporarily,
-        placeId 
+        placeId
     } = restaurant;
 
     const ratingArray = Array.from(new Array(Math.floor(rating)));
 
     return (
         <RestaurantCard elevation={5} >
+            <Favourites restaurant={restaurant} />
             <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
             <Info>
                 <Text variant="label">{name}</Text>
