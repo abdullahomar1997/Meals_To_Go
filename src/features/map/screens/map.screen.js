@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import MapView from "react-native-maps";
 import styled from "styled-components/native";
 import { LocationContext } from "../../../services/location/location.context";
@@ -37,7 +37,19 @@ export const MapScreen = () => {
                 }}
             >
                 {restaurants.map((restaurant) => {
-                    return null;
+                    return (
+                        <MapView.Marker
+                            key={restaurant.name}
+                            title={restaurant.name}
+                            coordinate={{
+                                latitude: restaurant.geometry.location.lat,
+                                longitude: restaurant.geometry.location.lng,
+                            }}
+                        >
+
+                            
+                        </MapView.Marker>
+                    );
                 })}
             </Map>
         </>
