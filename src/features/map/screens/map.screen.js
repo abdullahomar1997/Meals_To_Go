@@ -15,8 +15,6 @@ export const MapScreen = ({ navigation }) => {
     const { location } = useContext(LocationContext)
     const { restaurants = [] } = useContext(RestaurantsContext)
 
-    console.log(restaurants)
-
     const [latDelta, setLatDelta] = useState(0);
 
     const { lat, lng, viewport } = location;
