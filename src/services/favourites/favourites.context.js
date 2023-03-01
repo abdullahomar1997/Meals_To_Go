@@ -1,9 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { createContext, useEffect, useState } from 'react'
+import React, { useContext, createContext, useEffect, useState } from 'react'
+import { AuthenticationContext } from '../authentication/authentication.context';
 
 export const FavouritesContext = createContext();
 
 export const FavouritesContextProvider = ({ children }) => {
+
+    const { user } = useContext(AuthenticationContext)
+
     const [favourites, setFavourites] = useState([]);
 
     const add = (restaurant) => {
@@ -14,20 +18,20 @@ export const FavouritesContextProvider = ({ children }) => {
         setFavourites(favourites.filter((x) => x.placeId != restaurant.placeId))
     }
 
-    const saveFavourites = async (value) => {
+    const saveFavourites = async (value, uid) => {
         try {
             const jsonValue = JSON.stringify(value)
             console.log("storing favourites", jsonValue)
-            await AsyncStorage.setItem('@favourites2', jsonValue)
+            await AsyncStorage.setItem(`@favourites-${uid}`, jsonValue)
         } catch (e) {
             console.log("error storing", e)
         }
     }
 
 
-    const loadFavourites = async () => {
+    const loadFavourites = async (uid) => {
         try {
-            const jsonValue = await AsyncStorage.getItem('@favourites2')
+            const jsonValue = await AsyncStorage.getItem(`@favourites-${uid}`)
             console.log("loading favourites", jsonValue)
             if (jsonValue !== null) {
                 setFavourites(JSON.parse(jsonValue))
@@ -40,12 +44,16 @@ export const FavouritesContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        loadFavourites();
-    }, [])
+        if (user && user.uid) {
+            loadFavourites(user.uid);
+        }
+    }, [user])
 
     useEffect(() => {
-        saveFavourites(favourites)
-    }, [favourites])
+        if (user && user.id && favourites.length) {
+            saveFavourites(favourites, user.uid)
+        }
+    }, [favourites, user])
 
     return (
         <FavouritesContext.Provider
