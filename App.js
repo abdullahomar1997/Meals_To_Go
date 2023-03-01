@@ -8,7 +8,8 @@ import { RestaurantsContextProvider } from './src/services/restaurant/restaurant
 import { LocationContextProvider } from './src/services/location/location.context';
 import { Navigation } from './src/infastructure/navigation/index';
 import { FavouritesContextProvider } from './src/services/favourites/favourites.context';
-import * as firebase from "firebase"
+import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
+import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBTt0yqW_Zjpo9JO8yHXPSgIemyWDUi_wI",
@@ -19,9 +20,9 @@ const firebaseConfig = {
   appId: "1:892997312152:web:40aa721f0a833d2e7c3aed"
 };
 
-if (!firebase.apps.length) {
-  const app = initializeApp(firebaseConfig);
-}
+//if (!firebase.apps.length) {
+const app = initializeApp(firebaseConfig);
+//}
 
 export default function App() {
 
@@ -40,13 +41,15 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <Navigation />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <Navigation />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style='auto' />
     </>
