@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react"
 import { loginRequest } from "./authentication.service";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 export const AuthenticationContext = createContext();
 
@@ -9,10 +9,20 @@ export const AuthenticationContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState([]);
 
+    const auth = getAuth();
+    onAuthStateChanged(auth, (usr) => {
+        if (usr) {
+            setUser(usr)
+            setIsLoading(false)
+        } else {
+            setIsLoading(false)
+        }
+    });
+
     const onLogin = (email, password) => {
         setIsLoading(true)
         // loginRequest(email, password)
-        const auth = getAuth();
+        // const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
             .then((u) => {
                 setUser(u.user);
@@ -35,7 +45,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
         setIsLoading(true)
         // loginRequest(email, password)
-        const auth = getAuth();
+        // const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password).then((u) => {
             setUser(u.user);
             setIsLoading(false)
@@ -48,6 +58,18 @@ export const AuthenticationContextProvider = ({ children }) => {
             })
     }
 
+    const onLogout = () => {
+        setUser(null);
+
+        // const auth = getAuth();
+        signOut(auth).then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
+
+    }
+
     return (
         <AuthenticationContext.Provider
             value={{
@@ -56,7 +78,8 @@ export const AuthenticationContextProvider = ({ children }) => {
                 isLoading,
                 error,
                 onLogin,
-                onRegister
+                onRegister,
+                onLogout
             }}
         >
             {children}
