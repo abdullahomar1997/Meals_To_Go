@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { Spacer } from "../../../components/spacer.component";
 import { Text } from "../../../components/typography/text.components";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
-import { AccountBackground, AccountContainer, AccountCover, AuthButton, AuthInput } from "../components/account.styles";
+import { AccountBackground, AccountContainer, AccountCover, AuthButton, AuthInput, ErrorContainer, Title } from "../components/account.styles";
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -14,6 +14,7 @@ export const LoginScreen = () => {
     return (
         <AccountBackground >
             <AccountCover />
+            <Title>Meals To Go</Title>
             <AccountContainer>
                 <AuthInput
                     label="Email"
@@ -35,9 +36,9 @@ export const LoginScreen = () => {
                 />
                 {
                     error && (
-                        <Spacer size="large">
+                        <ErrorContainer size="large">
                             <Text variant="error">{error}</Text>
-                        </Spacer>
+                        </ErrorContainer>
                     )
                 }
 
@@ -49,6 +50,15 @@ export const LoginScreen = () => {
                     Login
                 </AuthButton>
             </AccountContainer>
+            <Spacer size="large" >
+                <AuthButton
+                    icon="email"
+                    mode="contained"
+                    onPress={() => navigation.goBack()}
+                >
+                    Back
+                </AuthButton>
+            </Spacer>
         </AccountBackground>
     )
 }
