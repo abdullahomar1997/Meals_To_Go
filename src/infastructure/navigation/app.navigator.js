@@ -31,11 +31,9 @@ const createScreenOptions = ({ route }) => {
 const Settings = () => <SafeArea><Text>Settings</Text></SafeArea>
 
 export const AppNavigator = () => (
-    <NavigationContainer>
         <Tab.Navigator screenOptions={createScreenOptions}>
             <Tab.Screen name="Restaurant" component={RestaurantsNavigator} />
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
-    </NavigationContainer>
 )
