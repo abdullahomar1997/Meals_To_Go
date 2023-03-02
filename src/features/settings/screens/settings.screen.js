@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { Avatar, List } from 'react-native-paper';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { Spacer } from '../../../components/spacer.component';
 import { Text } from '../../../components/typography/text.components';
 import { SafeArea } from '../../../components/utils/safe-area.components2';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 
-const SettingsItem = styled(List.item)`
+const SettingsItem = styled(List.Item)`
     padding: ${props => props.theme.space[3]};
 `
 
